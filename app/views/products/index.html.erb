@@ -1,0 +1,41 @@
+<% if policy(Product).search? %>
+  <%= search_form_for @q do |f| %>
+    <%= f.search_field :name_cont, placeholder: 'Search by name' %>
+    <br>
+    <%= f.search_field :price_gteq, placeholder: 'Min price' %>
+    <br>
+    <%= f.search_field :price_lteq, placeholder: 'Max price' %>
+    <br>
+    <%= f.submit 'Search', class: 'btn btn-default' %>
+  <% end %>
+<% end %>
+<ul>
+  <% @products.includes(comments: [:user]).each do |product| %>
+    <li>
+      <%= link_to product.name, product_path(id: product.id) %>:
+      <%= price_format(product.price) %>
+      (viewed: <%= product.view.value %>, comments <%= product.comments_count %>:
+      |
+      <span class="product-like">
+        <% if product.liked?(current_user) %>
+          <%= link_to unlike_product_likes_path(product), method: :put, remote: true do %>
+            Unlike! (<%= product.like_count %>)
+          <% end %>
+        <% else %>
+          <%= link_to like_product_likes_path(product), method: :put, remote: true do %>
+            Like! (<%= product.like_count %>)
+          <% end %>
+        <% end %>
+      </span>
+      <%= link_to 'Delete', product_path(product), method: :delete %>
+    </li>
+  <% end %>
+</ul>
+
+<%= paginate @products, :theme => 'twitter-bootstrap-3' %>
+
+<br>
+
+
+
+<%= link_to 'New', new_product_path %>

@@ -1,0 +1,1 @@
+(function(){$(document).on("turbolinks:load",function(){var r;return r=function(r){var t;if(r.files&&r.files[0])return t=new FileReader,t.onload=function(r){return $("#user_avatar_show").attr("src",r.target.result)},t.readAsDataURL(r.files[0])},$("#user_avatar").change(function(){return r(this)})})}).call(this);

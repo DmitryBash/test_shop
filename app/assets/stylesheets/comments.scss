@@ -1,0 +1,22 @@
+// Place all the styles related to the Comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'home';
+
+$border-width: 1px;
+
+@mixin border-custom($width) {
+  border: $width solid red;
+}
+
+.menu-login {
+  @include border-custom($border-width);
+
+  a {
+    li {
+
+    }
+
+  }
+}
